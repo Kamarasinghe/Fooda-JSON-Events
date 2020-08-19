@@ -143,3 +143,30 @@ describe('Testing the collectCustomersIntoArray function', () => {
   });
 
 });
+
+
+describe('Testing the sortByTotalRewardPoints function', () => {
+
+  let unsorted =  [ 
+    { name: 'Will', totalRewardPoints: 3, avgPointsPerOrder: 3, totalOrders: 1 },
+    { name: 'Elizabeth', totalRewardPoints: 0, avgPointsPerOrder: 0, totalOrders: 0 },
+    { name: 'Kevin', totalRewardPoints: 0, avgPointsPerOrder: 0, totalOrders: 0 },
+    { name: 'Jessica', totalRewardPoints: 22, avgPointsPerOrder: 11, totalOrders: 2 }
+  ];
+
+  let sorted = [
+    { name: 'Jessica', totalRewardPoints: 22, avgPointsPerOrder: 11, totalOrders: 2 },
+    { name: 'Will', totalRewardPoints: 3, avgPointsPerOrder: 3, totalOrders: 1 },
+    { name: 'Elizabeth', totalRewardPoints: 0, avgPointsPerOrder: 0, totalOrders: 0 },
+    { name: 'Kevin', totalRewardPoints: 0, avgPointsPerOrder: 0, totalOrders: 0 }
+  ]
+
+  test('sortByTotalRewardPoints function to be defined', () => {
+    expect(rewardsReport.sortByTotalRewardPoints).toBeDefined();
+  });
+
+  test('properly sorts in descending order an array of objects', () => {
+    expect(rewardsReport.sortByTotalRewardPoints(unsorted)).toEqual(sorted);
+  });
+
+});
