@@ -122,3 +122,24 @@ describe('Testing the determineIfPointOrPoints function', () => {
   });
 
 });
+
+
+describe('Testing the collectCustomersIntoArray function', () => {
+
+  let testDatabase = {
+    Jessica: { totalRewardPoints: 22, avgPointsPerOrder: 11, totalOrders: 2 },
+    Will: { totalRewardPoints: 3, avgPointsPerOrder: 3, totalOrders: 1 },
+  };
+
+  let result = rewardsReport.collectCustomersIntoArray(testDatabase);
+
+  test('collectCustomersIntoArray function to be defined', () => {
+    expect(rewardsReport.collectCustomersIntoArray).toBeDefined();
+  });
+
+  test('should return an array of objects', () => {
+    expect(Array.isArray(result)).toBeTruthy();
+    expect(result[0].name).toEqual('Jessica');
+  });
+
+});
