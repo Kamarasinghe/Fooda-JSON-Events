@@ -1,5 +1,47 @@
 const Database = {};
 
+const TestEvents = [
+  {
+    action: "new_customer",
+    name: "Jessica",
+    timestamp: "2020-07-01T00:00:00-05:00"
+  },
+  {
+    action: "new_customer",
+    name: "Will",
+    timestamp: "2020-07-01T01:00:00-05:00"
+  },
+  {
+    action: "new_customer",
+    name: "Elizabeth", 
+    timestamp: "2020-07-01T12:00:00-05:00"
+  },
+  {
+    action: "new_order", 
+    customer: "Jessica",
+    amount: 12.5, 
+    timestamp: "2020-07-01T12:15:57-05:00"
+  },
+  {
+    action: "new_order", 
+    customer: "Jessica", 
+    amount: 16.5, 
+    timestamp: "2020-07-01T10:01:00-05:00"
+  },
+  {
+    action: "new_order", 
+    customer: "Will", 
+    amount: 8.9, 
+    timestamp: "2020-07-01T12:20:00-05:00"
+  },
+  {
+    action: "new_order", 
+    customer: "Will", 
+    amount: 1.5, 
+    timestamp: "2020-07-01T12:21:00-05:00"
+  }
+];
+
 const rewardsReport = {
   handleApiEvents: (events, database) => {
     const Customers = {};
@@ -91,10 +133,10 @@ const rewardsReport = {
   }
 };
 
-// let customers = rewardsReport.handleApiEvents(events, Database);
+let customers = rewardsReport.handleApiEvents(TestEvents, Database);
+Object.assign(Database, customers);
+let report = rewardsReport.createReport(Database);
 
-// Object.assign(Database, customers);
-
-// let report = rewardsReport.createReport(Database);
+// console.log(report);
 
 module.exports = rewardsReport;
