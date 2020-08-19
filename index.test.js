@@ -41,3 +41,21 @@ describe('Testing the handleApiEvents function', () => {
   });
 
 });
+
+
+describe('Testing the parseTimeStamp function', () => {
+
+    test('parseTimeStamp function to be defined', () => {
+      expect(rewardsReport.parseTimeStamp).toBeDefined();
+    });
+  
+    test('should be less than 24', () => {
+      expect(rewardsReport.parseTimeStamp('2020-07-01T23:59:59-05:00')).toBeLessThan(24);
+    });
+  
+    test('should be greater than or equal to 0', () => {
+      expect(rewardsReport.parseTimeStamp('2020-07-01T00:01:59-05:00')).toBeGreaterThanOrEqual(0);
+    });
+    
+  });
+  
