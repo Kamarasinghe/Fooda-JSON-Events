@@ -180,7 +180,7 @@ describe('Testing the createReport function', () => {
 
   test('should return specific string(s)', () => {
     let customers1 = [{ name: 'Kevin', totalRewardPoints: 0, avgPointsPerOrder: 0, totalOrders: 0 }];
-    let customers1Results = 'Kevin: No orders.'
+    let customers1Results = 'Kevin: No orders.';
 
     let customers2 = [
       { name: 'Kevin', totalRewardPoints: 0, avgPointsPerOrder: 0, totalOrders: 0 },
