@@ -95,4 +95,6 @@ const rewardsReport = {
 
 // Object.assign(Database, customers);
 
+// let report = rewardsReport.createReport(Database);
+
 module.exports = rewardsReport;
