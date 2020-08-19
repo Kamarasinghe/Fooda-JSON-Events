@@ -170,3 +170,34 @@ describe('Testing the sortByTotalRewardPoints function', () => {
   });
 
 });
+
+
+describe('Testing the createReport function', () => {
+
+  test('createReport function to be defined', () => {
+    expect(rewardsReport.createReport).toBeDefined();
+  });
+
+  test('should return specific string(s)', () => {
+    let customers1 = [{ name: 'Kevin', totalRewardPoints: 0, avgPointsPerOrder: 0, totalOrders: 0 }];
+    let customers1Results = 'Kevin: No orders.'
+
+    let customers2 = [
+      { name: 'Kevin', totalRewardPoints: 0, avgPointsPerOrder: 0, totalOrders: 0 },
+      { name: 'Jessica', totalRewardPoints: 22, avgPointsPerOrder: 11, totalOrders: 2 }
+    ];
+    let customers2Results = `Jessica: 22 points with 11 points per order.\nKevin: No orders.`;
+
+    let customers3 = [
+      { name: 'Elizabeth', totalRewardPoints: 0, avgPointsPerOrder: 0, totalOrders: 0 },
+      { name: 'Will', totalRewardPoints: 3, avgPointsPerOrder: 3, totalOrders: 1 },
+      { name: 'Jessica', totalRewardPoints: 22, avgPointsPerOrder: 11, totalOrders: 2 }
+    ];
+    let customers3Results = `Jessica: 22 points with 11 points per order.\nWill: 3 points with 3 per order.\nElizabeth: No orders.`;
+
+    expect(rewardsReport.createReport(customers1)).toEqual(customers1Results);
+    expect(rewardsReport.createReport(customers2)).toEqual(customers2Results);
+    expect(rewardsReport.createReport(customers3)).toEqual(customers3Results);
+  });
+
+});
