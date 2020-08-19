@@ -45,66 +45,80 @@ describe('Testing the handleApiEvents function', () => {
 
 describe('Testing the parseTimeStamp function', () => {
 
-    test('parseTimeStamp function to be defined', () => {
-      expect(rewardsReport.parseTimeStamp).toBeDefined();
-    });
-  
-    test('should be less than 24', () => {
-      expect(rewardsReport.parseTimeStamp('2020-07-01T23:59:59-05:00')).toBeLessThan(24);
-    });
-  
-    test('should be greater than or equal to 0', () => {
-      expect(rewardsReport.parseTimeStamp('2020-07-01T00:01:59-05:00')).toBeGreaterThanOrEqual(0);
-    });
+	test('parseTimeStamp function to be defined', () => {
+			expect(rewardsReport.parseTimeStamp).toBeDefined();
+	});
+
+	test('should be less than 24', () => {
+			expect(rewardsReport.parseTimeStamp('2020-07-01T23:59:59-05:00')).toBeLessThan(24);
+	});
+
+	test('should be greater than or equal to 0', () => {
+			expect(rewardsReport.parseTimeStamp('2020-07-01T00:01:59-05:00')).toBeGreaterThanOrEqual(0);
+	});
     
-  });
+});
   
 
-  describe('Testing the calculateRewardPoints function', () => {
+describe('Testing the calculateRewardPoints function', () => {
 
-    test('calculateRewardPoints function to be defined', () => {
-      expect(rewardsReport.calculateRewardPoints).toBeDefined();
-    });
-  
-    test('should return the proper reward points - time edge cases', () => {
-      let order1 = { amount: 20, timestamp: '2020-07-01T00:00:59-05:00' };
-      let order2 = { amount: 14, timestamp: '2020-07-01T12:01:00-05:00' };
-      let order3 = { amount: 10, timestamp: '2020-07-01T11:59:59-05:00' };
-      let order4 = { amount: 5, timestamp: '2020-07-01T10:00:01-05:00' };
-      let order5 = { amount: 17, timestamp: '2020-07-01T01:59:59-05:00' };
-  
-      expect(rewardsReport.calculateRewardPoints(order1)).toEqual(5);
-      expect(rewardsReport.calculateRewardPoints(order2)).toEqual(5);
-      expect(rewardsReport.calculateRewardPoints(order3)).toEqual(5);
-      expect(rewardsReport.calculateRewardPoints(order4)).toEqual(5);
-      expect(rewardsReport.calculateRewardPoints(order5)).toEqual(5);
-    });
-  
-    test('should "discard" order edge cases', () => {
-      // Between 12 and 13
-      let order1 = { amount: 5.99, timestamp: '2020-07-01T12:00:59-05:00' };
-      let order2 = { amount: 60.01, timestamp: '2020-07-01T12:59:00-05:00' };
-  
-      // Between 11 and 12 OR between 13 and 14
-      let order3 = { amount: 3.99, timestamp: '2020-07-01T11:59:59-05:00' };
-      let order4 = { amount: 40.01, timestamp: '2020-07-01T13:00:01-05:00' };
-  
-      // Between 10 and 11 OR between 14 and 15
-      let order5 = { amount: 1.99, timestamp: '2020-07-01T10:59:59-05:00' };
-      let order6 = { amount: 20.01, timestamp: '2020-07-01T14:59:59-05:00' };
-  
-      // Any other time
-      let order7 = { amount: 8, timestamp: '2020-07-01T08:59:59-05:00' };
-      let order8 = { amount: 80.01, timestamp: '2020-07-01T23:59:59-05:00' };
-  
-      expect(rewardsReport.calculateRewardPoints(order1)).toEqual('discard');
-      expect(rewardsReport.calculateRewardPoints(order2)).toEqual('discard');
-      expect(rewardsReport.calculateRewardPoints(order3)).toEqual('discard');
-      expect(rewardsReport.calculateRewardPoints(order4)).toEqual('discard');
-      expect(rewardsReport.calculateRewardPoints(order5)).toEqual('discard');
-      expect(rewardsReport.calculateRewardPoints(order6)).toEqual('discard');
-      expect(rewardsReport.calculateRewardPoints(order7)).toEqual('discard');
-      expect(rewardsReport.calculateRewardPoints(order8)).toEqual('discard');
-    });
-  
+	test('calculateRewardPoints function to be defined', () => {
+		expect(rewardsReport.calculateRewardPoints).toBeDefined();
+	});
+
+	test('should return the proper reward points - time edge cases', () => {
+		let order1 = { amount: 20, timestamp: '2020-07-01T00:00:59-05:00' };
+		let order2 = { amount: 14, timestamp: '2020-07-01T12:01:00-05:00' };
+		let order3 = { amount: 10, timestamp: '2020-07-01T11:59:59-05:00' };
+		let order4 = { amount: 5, timestamp: '2020-07-01T10:00:01-05:00' };
+		let order5 = { amount: 17, timestamp: '2020-07-01T01:59:59-05:00' };
+
+		expect(rewardsReport.calculateRewardPoints(order1)).toEqual(5);
+		expect(rewardsReport.calculateRewardPoints(order2)).toEqual(5);
+		expect(rewardsReport.calculateRewardPoints(order3)).toEqual(5);
+		expect(rewardsReport.calculateRewardPoints(order4)).toEqual(5);
+		expect(rewardsReport.calculateRewardPoints(order5)).toEqual(5);
+	});
+
+	test('should "discard" order edge cases', () => {
+		// Between 12 and 13
+		let order1 = { amount: 5.99, timestamp: '2020-07-01T12:00:59-05:00' };
+		let order2 = { amount: 60.01, timestamp: '2020-07-01T12:59:00-05:00' };
+
+		// Between 11 and 12 OR between 13 and 14
+		let order3 = { amount: 3.99, timestamp: '2020-07-01T11:59:59-05:00' };
+		let order4 = { amount: 40.01, timestamp: '2020-07-01T13:00:01-05:00' };
+
+		// Between 10 and 11 OR between 14 and 15
+		let order5 = { amount: 1.99, timestamp: '2020-07-01T10:59:59-05:00' };
+		let order6 = { amount: 20.01, timestamp: '2020-07-01T14:59:59-05:00' };
+
+		// Any other time
+		let order7 = { amount: 8, timestamp: '2020-07-01T08:59:59-05:00' };
+		let order8 = { amount: 80.01, timestamp: '2020-07-01T23:59:59-05:00' };
+
+		expect(rewardsReport.calculateRewardPoints(order1)).toEqual('discard');
+		expect(rewardsReport.calculateRewardPoints(order2)).toEqual('discard');
+		expect(rewardsReport.calculateRewardPoints(order3)).toEqual('discard');
+		expect(rewardsReport.calculateRewardPoints(order4)).toEqual('discard');
+		expect(rewardsReport.calculateRewardPoints(order5)).toEqual('discard');
+		expect(rewardsReport.calculateRewardPoints(order6)).toEqual('discard');
+		expect(rewardsReport.calculateRewardPoints(order7)).toEqual('discard');
+		expect(rewardsReport.calculateRewardPoints(order8)).toEqual('discard');
+	});
+
+});
+
+
+describe('Testing the determineIfPointOrPoints function', () => {
+
+  test('determineIfPointOrPoints function to be defined', () => {
+    expect(rewardsReport.determineIfPointOrPoints).toBeDefined();
   });
+
+  test('should return the collect string', () => {
+    expect(rewardsReport.determineIfPointOrPoints('1')).toEqual('point');
+    expect(rewardsReport.determineIfPointOrPoints('2')).toEqual('points');
+  });
+
+});
